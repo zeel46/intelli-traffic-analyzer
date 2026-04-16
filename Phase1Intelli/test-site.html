@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Static Tracking Site</title>
+    <script src="http://localhost:5000/tracker.js" data-key="867ed667cd1b91684f1fd59423a2d0c1"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .success-box {
+            background-color: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Static Site Tracking Demo</h1>
+    <div class="success-box">
+        <strong>Tracking Code Embedded!</strong>
+        <p>If the backend server is running on port 5000, and you replaced <code>YOUR_API_KEY_HERE</code> in the source
+            code with a real key from the database, a page view just got recorded!</p>
+    </div>
+
+    <h2>How to test:</h2>
+    <ol>
+        <li>Start your Node.js backend (<code>npm run dev</code> in the <code>server</code> folder).</li>
+        <li>Open this file in your browser (just double-click <code>test-site.html</code> to open locally).</li>
+        <li>Check the Network tab in Developer Tools (F12) to see the POST request to <code>/api/track</code>.</li>
+        <li>You can also click around and refresh the page to generate more traffic data points!</li>
+    </ol>
+</body>
+
+</html>

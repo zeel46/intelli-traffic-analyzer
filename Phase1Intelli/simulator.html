@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Behavior Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    p {
+      color: #666;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      margin: 12px 0;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.02);
+      background: #e2e8f0;
+    }
+
+    .normal {
+      background: #d1d5db;
+      color: #1f2937;
+    }
+
+    .suspicious {
+      background: #9ca3af;
+      color: white;
+    }
+
+    .bot {
+      background: #6b7280;
+      color: white;
+    }
+
+    .stop {
+      background: #4b5563;
+      color: white;
+    }
+
+    #status {
+      margin-top: 20px;
+      padding: 14px;
+      background: #f3f4f6;
+      border-radius: 12px;
+      min-height: 24px;
+      text-align: center;
+      color: #374151;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Traffic Behavior Simulator</h1>
+    <p>Use this offline page to simulate normal, suspicious, and bot traffic for your Smart Traffic Analyzer dashboard.
+    </p>
+
+    <button class="normal" onclick="simulateNormal()">Simulate Normal User</button>
+    <button class="suspicious" onclick="simulateSuspicious()">Simulate Suspicious User</button>
+    <button class="bot" onclick="simulateBot()">Simulate Bot Traffic</button>
+    <button class="stop" onclick="stopSimulation()">Stop Simulation</button>
+
+    <div id="status">No simulation running.</div>
+  </div>
+
+  <script>
+    const API_KEY = "867ed667cd1b91684f1fd59423a2d0c1"; // Updated to use the key from your test-site.html
+    const API_URL = "http://127.0.0.1:5000/api/track";    // Updated to use 127.0.0.1 for network stability
+    let currentInterval = null;
+
+    function sendTraffic(data) {
+      fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          apiKey: API_KEY,
+          timestamp: new Date(),
+          ...data
+        })
+      })
+        .then(() => console.log("Traffic sent", data))
+        .catch(err => console.error(err));
+    }
+
+    function stopSimulation() {
+      clearInterval(currentInterval);
+      document.getElementById("status").innerText = "Simulation stopped.";
+    }
+
+    function simulateNormal() {
+      stopSimulation();
+      document.getElementById("status").innerText = "Simulating normal user traffic...";
+
+      currentInterval = setInterval(() => {
+        const pages = ["/home", "/about", "/products", "/contact"];
+        sendTraffic({
+          page: pages[Math.floor(Math.random() * pages.length)],
+          userAgent: navigator.userAgent,
+          requests_per_minute: 10,
+          repeated_page_ratio: 0.2,
+          avg_time_gap: 12,
+          same_ip_hits: 5
+        });
+      }, 5000);
+    }
+
+    function simulateSuspicious() {
+      stopSimulation();
+      document.getElementById("status").innerText = "Simulating suspicious activity...";
+
+      currentInterval = setInterval(() => {
+        sendTraffic({
+          page: "/login",
+          userAgent: navigator.userAgent,
+          requests_per_minute: 40,
+          repeated_page_ratio: 0.7,
+          avg_time_gap: 1.5,
+          same_ip_hits: 30
+        });
+      }, 1000);
+    }
+
+    function simulateBot() {
+      stopSimulation();
+      document.getElementById("status").innerText = "Simulating bot traffic...";
+
+      currentInterval = setInterval(() => {
+        sendTraffic({
+          page: "/home",
+          userAgent: "python-requests/2.31",
+          requests_per_minute: 150,
+          repeated_page_ratio: 0.95,
+          avg_time_gap: 0.1,
+          same_ip_hits: 120
+        });
+      }, 100);
+    }
+  </script>
+</body>
+
+</html>

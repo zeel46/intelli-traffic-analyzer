@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary-blue: #3b82f6; 
+  --dark-text: #1e293b;
+  --muted-text: #64748b;
+  --bg-white: #ffffff;
+  --bg-light-blue: #f0f9ff; /* For top stat cards */
+  --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  --sidebar-w: 240px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--dark-text);
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  background-size: cover;
+  line-height: 1.5;
+}
+
+/* Base Layout wrappers */
+.page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: var(--sidebar-w);
+  background-color: var(--bg-white);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.sidebar-logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  padding: 0 1rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: var(--muted-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sidebar-link.active {
+  background-color: var(--primary-blue);
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  padding: 2rem 3rem;
+  min-height: 100vh;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-search {
+  background: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Dashboard Cards */
+.stat-card {
+  background-color: var(--bg-light-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stat-card-title {
+  color: var(--muted-text);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+.white-panel {
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+/* Forms & Inputs */
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-white {
+  background-color: white;
+  color: var(--primary-blue);
+  border: 1px solid white;
+}
+
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.glass-table th, .glass-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  text-align: left;
+}
+
+.glass-table th {
+  color: var(--muted-text);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-danger { background: #fee2e2; color: #ef4444; }
+.badge-success { background: #d1fae5; color: #10b981; }
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--dark-text);
+}
+
+a {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
